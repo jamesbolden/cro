@@ -3,25 +3,37 @@
 
 #include <string>
 #include <fstream>
+#include "mp/common.hh"
 #include "mp/token.hh"
 
 namespace mp {
-    class lexer {
-        typedef unsigned unicode_t;
+    struct utf8 {
+        utf8(unicode_t);
+        ~utf8();
 
-        unicode_t nextUnicode();
+        unsigned length;
+        char *data;
+    };
+
+    class lexer {
+        unicode_t next_unicode();
     public:
         lexer(const std::string&);
 
         token lex();
-        std::string symbol() const;
+        void set_state(state_t);
+        std::string text() const;
 
     private:
         std::string m_File;
         std::ifstream m_Input;
-        std::string m_Symbol;
-        bool m_Lexing_macro;
+        std::string m_Text;
+        state_t m_State;
     };
+
+    bool isspace(unicode_t);
+    bool isascii(unicode_t);
+    bool isdelim(unicode_t);
 }
 
 #endif // MP_LEXER_HH

@@ -6,9 +6,11 @@ namespace mp {
         END_OF_FILE,
         LEFT_BRACKET,
         RIGHT_BRACKET,
+        COLON,
         KWD_DEFINE,
         PARAM,
-        SYMBOL
+        SYMBOL,
+        TEXT_BLOCK
     };
 }
 
